@@ -1,0 +1,60 @@
+{% if feedback and feedbacks %}
+<section class="fb fb--{{ feedback.theme }}" id="feedback">
+    <span class="fb-glow fb-glow--1" aria-hidden="true"></span>
+    <span class="fb-glow fb-glow--2" aria-hidden="true"></span>
+
+    <div class="container fb-inner">
+
+        <div class="fb-head">
+            {% if feedback.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ feedback.eyebrow }}</span>{% endif %}
+            <h2 data-reveal="up" data-delay="100">{{ feedback.heading }}</h2>
+            {% if feedback.description %}<p data-reveal="up" data-delay="200">{{ feedback.description }}</p>{% endif %}
+        </div>
+
+        <div class="fb-slider" data-reveal="up" data-delay="150"
+             data-autoplay="{{ feedback.autoplay|yesno:'true,false' }}"
+             data-speed="{{ feedback.autoplay_seconds }}"
+             aria-roledescription="carousel" aria-label="{{ feedback.heading }}">
+
+            <div class="fb-track" tabindex="0">
+                {% for f in feedbacks %}
+                <article class="fb-card" style="--i: {{ forloop.counter0 }}">
+                    <i class="bi bi-quote fb-quote" aria-hidden="true"></i>
+
+                    {% if feedback.show_rating %}
+                    <div class="fb-stars" role="img" aria-label="{{ f.rating }} out of 5">
+                        {% for s in f.filled_stars %}<i class="bi bi-star-fill" style="--s: {{ forloop.counter0 }}"></i>{% endfor %}{% for s in f.empty_stars %}<i class="bi bi-star off"></i>{% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <blockquote class="fb-text">{{ f.message }}</blockquote>
+
+                    <footer class="fb-person">
+                        {% if f.photo %}
+                            <img class="fb-avatar" src="{{ f.photo.url }}" alt="{{ f.name }}" loading="lazy">
+                        {% else %}
+                            <span class="fb-avatar fb-avatar--initial" aria-hidden="true">{{ f.initial }}</span>
+                        {% endif %}
+                        <div class="fb-who">
+                            <strong>{{ f.name }}</strong>
+                            {% if f.subtitle %}<span>{{ f.subtitle }}</span>{% endif %}
+                            {% if f.country %}<span class="fb-country"><i class="bi bi-geo-alt"></i> {{ f.country }}</span>{% endif %}
+                        </div>
+                    </footer>
+                </article>
+                {% endfor %}
+            </div>
+
+            {% if feedback.show_arrows %}
+            <div class="fb-arrows">
+                <button type="button" class="fb-arrow fb-prev" aria-label="Previous feedback"><i class="bi bi-arrow-left"></i></button>
+                <button type="button" class="fb-arrow fb-next" aria-label="Next feedback"><i class="bi bi-arrow-right"></i></button>
+            </div>
+            {% endif %}
+
+            {% if feedback.show_dots %}<div class="fb-dots" role="tablist"></div>{% endif %}
+        </div>
+
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,25 @@
+{% if biz_cta %}
+<section class="bizcta" id="business-enquiry" style="--ov-color: {{ biz_cta.overlay_color }}; --ov-start: {{ biz_cta.overlay_start }}%; --ov-end: {{ biz_cta.overlay_end }}%;">
+
+    {% if biz_cta.background_image %}
+    <div class="bizcta-bg" data-reveal="fade" style="background-image: url('{{ biz_cta.background_image.url }}');"></div>
+    {% endif %}
+    <div class="bizcta-overlay"></div>
+
+    <div class="container bizcta-inner">
+        {% if biz_cta.eyebrow %}<span class="bizcta-eyebrow" data-reveal="up">{{ biz_cta.eyebrow }}</span>{% endif %}
+        <h2 data-reveal="up" data-delay="100">{{ biz_cta.heading }}</h2>
+        {% if biz_cta.description %}<p data-reveal="up" data-delay="200">{{ biz_cta.description }}</p>{% endif %}
+
+        {% if biz_cta.button_text %}
+        <div class="bizcta-action" data-reveal="up" data-delay="300">
+            <a class="bizcta-btn" href="{{ biz_cta.button_link }}"{% if biz_cta.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>
+                <span>{{ biz_cta.button_text }}</span>
+                {% if biz_cta.button_icon %}<i class="{{ biz_cta.button_icon }}" aria-hidden="true"></i>{% endif %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+</section>
+{% endif %}

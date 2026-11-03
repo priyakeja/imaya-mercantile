@@ -1,0 +1,34 @@
+{% if about %}
+<section class="about" id="about">
+    <div class="container about-inner">
+
+        <div class="about-media">
+            <div class="about-main">
+                <img src="{{ about.main_image.url }}" alt="{{ about.heading }}">
+            </div>
+            {% if about.small_image %}
+            <div class="about-small">
+                <img src="{{ about.small_image.url }}" alt="">
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="about-content">
+            <h2>{{ about.heading }}</h2>
+            <span class="about-line"></span>
+            <p class="about-text">{{ about.description }}</p>
+
+            
+            <div class="about-tabs">
+                           {% if about_tabs %}
+            <ul class="about-pillars">
+                {% for tab in about_tabs %}
+                <li>{{ tab.title }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+{% endif %}

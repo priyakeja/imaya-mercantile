@@ -1,0 +1,35 @@
+{% if process %}
+<section class="process" id="process">
+    <div class="container process-inner">
+
+        <div class="process-head">
+            {% if process.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ process.eyebrow }}</span>{% endif %}
+            <h2 data-reveal="up" data-delay="100">{{ process.heading }}</h2>
+            <span class="process-divider" data-reveal="zoom" data-delay="250"></span>
+        </div>
+
+        <div class="process-track" data-reveal="fade">
+            {% for step in process_steps %}
+            <div class="process-node" data-reveal="zoom" data-delay="{% widthratio forloop.counter0 1 160 %}">
+                <span class="process-icon"><i class="{{ step.icon }}"></i></span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="process-grid">
+            {% for step in process_steps %}
+            <article class="process-card" data-reveal="up" data-delay="{% widthratio forloop.counter0 1 140 %}">
+                <span class="process-icon process-icon--card"><i class="{{ step.icon }}"></i></span>
+                <div class="process-img">
+                    <img src="{{ step.image.url }}" alt="{{ step.title }}" loading="lazy">
+                </div>
+                <span class="process-step">{{ process.step_prefix }} {{ forloop.counter|stringformat:"02d" }}</span>
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.description }}</p>
+            </article>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endif %}

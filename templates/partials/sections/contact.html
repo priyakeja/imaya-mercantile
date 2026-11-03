@@ -1,0 +1,144 @@
+{% if contact %}
+<section class="contact" id="contact">
+    <div class="container contact-inner">
+        <div class="contact-grid">
+
+            <!-- left -->
+            <div class="contact-info">
+                {% if contact.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ contact.eyebrow }}</span>{% endif %}
+                <h2 data-reveal="up" data-delay="100">{{ contact.heading }}</h2>
+                <span class="contact-rule" data-reveal="fade" data-delay="200"></span>
+
+                <ul class="contact-list">
+                    <li data-reveal="up" data-delay="120">
+                        <a class="contact-item" href="{{ contact.email_link }}" target="_blank" rel="noopener"
+                        data-mailto="{{ contact.mailto_link }}">
+                            <span class="contact-icon"><i class="{{ contact.email_icon }}"></i></span>
+                            <span class="ci-text">
+                                <span class="ci-label">{{ contact.email_title }}</span>
+                                <span class="ci-value">{{ contact.email }}</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li data-reveal="up" data-delay="200">
+                        <a class="contact-item" href="{{ contact.map_link }}" target="_blank" rel="noopener">
+                            <span class="contact-icon"><i class="{{ contact.address_icon }}"></i></span>
+                            <span class="ci-text">
+                                <span class="ci-label">{{ contact.address_title }}</span>
+                                <span class="ci-value">{{ contact.address }}</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li data-reveal="up" data-delay="280">
+                        <a class="contact-item" href="{{ contact.phone_link }}">
+                            <span class="contact-icon"><i class="{{ contact.phone_icon }}"></i></span>
+                            <span class="ci-text">
+                                <span class="ci-label">{{ contact.phone_title }}</span>
+                                <span class="ci-value">{{ contact.phone }}</span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+                {% if contact_images %}
+                <div class="contact-gallery" data-reveal="up" data-delay="320">
+                    {% for img in contact_images %}
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" loading="lazy">
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- right -->
+            <div class="contact-card" data-reveal="up" data-delay="150">
+                <h3>{{ contact.form_title }}</h3>
+
+                <form id="enquiryForm" class="enquiry-form" action="{% url 'contact_submit' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="hp" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-name">{{ contact.label_name }} *</label>
+                        <input id="enq-name" name="name" type="text" maxlength="100" autocomplete="name" aria-required="true">
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-company">{{ contact.label_company }}</label>
+                        <input id="enq-company" name="company" type="text" maxlength="150" autocomplete="organization">
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-country">{{ contact.label_country }} *</label>
+                        <input id="enq-country" name="country" type="text" list="countryList" maxlength="80" autocomplete="off" aria-required="true">
+                        <datalist id="countryList">
+                            {% for c in country_data.countries %}<option value="{{ c }}">{% endfor %}
+                        </datalist>
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-email">{{ contact.label_email }} *</label>
+                        <input id="enq-email" name="email" type="email" maxlength="120" autocomplete="email" aria-required="true">
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field field-select" id="productSelect">
+                        <span class="lbl" id="enq-products-label">{{ contact.label_products }}</span>
+                        <button type="button" class="select-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="enq-products-label">
+                            <span class="select-value" data-placeholder="{{ contact.products_placeholder }}">{{ contact.products_placeholder }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="select-panel" role="listbox" hidden>
+                            {% for p in contact_products %}
+                            <label class="select-opt">
+                                <input type="checkbox" name="products" value="{{ p }}"><span>{{ p }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-quantity">{{ contact.label_quantity }}</label>
+                        <input id="enq-quantity" name="quantity" type="text" inputmode="numeric" maxlength="9" autocomplete="off">
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="enq-phone">{{ contact.label_phone }}</label>
+                        <input id="enq-phone" name="phone" type="tel" inputmode="numeric" maxlength="15" autocomplete="tel">
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="enq-message">{{ contact.label_message }} *</label>
+                        <textarea id="enq-message" name="message" maxlength="2000" aria-required="true"></textarea>
+                        <small class="field-error"></small>
+                    </div>
+
+                    <div class="field-full form-actions">
+                        <button type="submit" class="enq-submit">
+                            <span class="enq-label">{{ contact.submit_text }}</span>
+                            {% if contact.submit_icon %}<i class="{{ contact.submit_icon }}"></i>{% endif %}
+                        </button>
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{ country_data|json_script:"countryData" }}
+
+{% if contact.whatsapp_enabled and contact.whatsapp_number %}
+<a href="{{ contact.whatsapp_link }}" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="bi bi-whatsapp"></i>
+</a>
+{% endif %}
+{% endif %}
+

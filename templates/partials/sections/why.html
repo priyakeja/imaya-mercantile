@@ -1,0 +1,35 @@
+{% if why %}
+<section class="why" id="why-us">
+    <div class="container why-inner">
+
+        <div class="why-media">
+            <div class="why-img" data-reveal="left">
+                <img src="{{ why.image.url }}" alt="{{ why.heading }}" loading="lazy">
+            </div>
+
+            {% if why.badge_text %}
+            <div class="why-badge" data-reveal="up" data-delay="450">
+                {% if why.badge_icon %}<i class="{{ why.badge_icon }}"></i>{% endif %}
+                <p>{{ why.badge_text }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="why-content">
+            {% if why.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ why.eyebrow }}</span>{% endif %}
+            <h2 data-reveal="up" data-delay="100">{{ why.heading }}</h2>
+
+            <div class="why-grid">
+                {% for feature in why_features %}
+                <div class="why-item" data-reveal="up" data-delay="{% widthratio forloop.counter0 1 120 %}">
+                    <span class="why-icon"><i class="{{ feature.icon }}"></i></span>
+                    <h3>{{ feature.title }}</h3>
+                    <p>{{ feature.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endif %}

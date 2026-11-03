@@ -1,0 +1,36 @@
+<header class="site-header" id="home">
+    <div class="container header-inner">
+        <a href="/" class="logo">
+            {% if site and site.logo %}
+                <img src="{{ site.logo.url }}" alt="{{ site.site_name }}">
+            {% else %}
+                <span>Imaya Mercantile</span>
+            {% endif %}
+        </a>
+
+        <nav class="main-nav" id="mainNav">
+            <ul>
+                {% for item in menu_items %}
+                <li>
+                    <a href="{{ item.url }}"
+                       class="{% if item.url == '/' %}active{% endif %}"
+                       {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+                        {{ item.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if site and site.header_button_text %}
+            <a href="{{ site.header_button_url }}" class="header-btn header-btn-mobile">{{ site.header_button_text }}</a>
+            {% endif %}
+        </nav>
+
+        {% if site and site.header_button_text %}
+        <a href="{{ site.header_button_url }}" class="header-btn header-btn-desktop">{{ site.header_button_text }}</a>
+        {% endif %}
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>

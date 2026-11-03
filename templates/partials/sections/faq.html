@@ -1,0 +1,33 @@
+{% if faq %}
+<section class="faq" id="faq">
+    <div class="container faq-inner">
+        <div class="faq-grid">
+
+            <div class="faq-intro">
+                {% if faq.eyebrow %}<span class="faq-eyebrow" data-reveal="up">{{ faq.eyebrow }}</span>{% endif %}
+                <h2 data-reveal="up" data-delay="100">{{ faq.heading }}</h2>
+                {% if faq.description %}<p data-reveal="up" data-delay="200">{{ faq.description }}</p>{% endif %}
+            </div>
+
+            <div class="faq-list" data-reveal="up" data-delay="150"
+                data-single="{{ faq.one_at_a_time|yesno:'true,false' }}">
+                {% for item in faq_items %}
+                {% with is_open=faq.open_first %}
+                <div class="faq-item{% if is_open and forloop.first %} open{% endif %}">
+                    <button type="button" class="faq-q" id="faq-q-{{ item.pk }}" aria-controls="faq-a-{{ item.pk }}"
+                        aria-expanded="{% if is_open and forloop.first %}true{% else %}false{% endif %}">
+                        <span>{{ item.question }}</span>
+                        <i class="faq-icon" aria-hidden="true"></i>
+                    </button>
+                    <div class="faq-a" id="faq-a-{{ item.pk }}" role="region" aria-labelledby="faq-q-{{ item.pk }}">
+                        <div class="faq-a-inner">{{ item.answer|linebreaks }}</div>
+                    </div>
+                </div>
+                {% endwith %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endif %}

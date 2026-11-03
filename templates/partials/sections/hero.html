@@ -1,0 +1,59 @@
+{% load l10n %}
+<section class="hero"
+         data-autoplay="{{ hero_settings.autoplay|yesno:'true,false' }}"
+         data-delay="{{ hero_settings.slide_duration }}"
+         style="--zoom: {{ hero_settings.zoom_scale|unlocalize }}; --overlay: {{ hero_settings.overlay_opacity }}%;">
+
+    {% for slide in hero_slides %}
+    <div class="hero-slide {% if forloop.first %}active{% endif %}">
+        <div class="hero-bg" style="background-image: url('{{ slide.background_image.url }}');"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <span class="hero-eyebrow">{{ slide.eyebrow }}</span>
+                <h1>
+                    {{ slide.title_line_1 }}
+                    <em>{{ slide.title_line_2 }}</em>
+                </h1>
+                <p>{{ slide.description }}</p>
+
+                <div class="hero-buttons">
+                    <a href="{{ slide.primary_button_url }}" class="btn btn-primary">
+                        {{ slide.primary_button_text }}
+                        {% if slide.primary_button_icon %}<i class="{{ slide.primary_button_icon }}"></i>{% endif %}
+                    </a>
+
+                    {% if slide.secondary_button_text %}
+                    <a class="btn btn-outline" {% if slide.secondary_button_url %}href="{{ slide.secondary_button_url }}"{% elif footer_contact %}href="{{ footer_contact.email_link }}" target="_blank" rel="noopener" data-mailto="{{ footer_contact.mailto_link }}"{% else %}href="mailto:{{ site.email }}"{% endif %}>
+                        {% if slide.secondary_button_icon %}<i class="{{ slide.secondary_button_icon }}"></i>{% endif %}
+                        {{ slide.secondary_button_text }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if hero_slides|length > 1 %}
+    <div class="hero-controls">
+        <div class="container hero-controls-inner">
+            {% if hero_settings.show_dots %}
+            <div class="hero-dots">
+                {% for slide in hero_slides %}
+                <button class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            {% else %}<span></span>{% endif %}
+
+            {% if hero_settings.show_arrows %}
+            <div class="hero-arrows">
+                <button class="arrow-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="arrow-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</section>

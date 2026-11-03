@@ -1,0 +1,16 @@
+{% if commitment %}
+<section class="commitment" id="commitment"
+         style="--ov-start: {{ commitment.overlay_start }}%; --ov-end: {{ commitment.overlay_end }}%;">
+
+    <div class="commitment-bg" data-reveal="fade"
+         style="background-image: url('{{ commitment.background_image.url }}');"></div>
+    <div class="commitment-overlay"></div>
+
+    <div class="container commitment-inner">
+        {% if commitment.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ commitment.eyebrow }}</span>{% endif %}
+        <h2 data-reveal="up" data-delay="120">{{ commitment.heading }}</h2>
+        {% if commitment.description %}<p data-reveal="up" data-delay="260">{{ commitment.description }}</p>{% endif %}
+    </div>
+
+</section>
+{% endif %}

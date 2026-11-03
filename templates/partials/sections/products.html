@@ -1,0 +1,132 @@
+{% if products_section.is_active and products %}
+<section class="products" id="products">
+    <div class="container products-inner">
+
+        <div class="products-head">
+            <div>
+                {% if products_section.eyebrow %}<span class="section-eyebrow">{{ products_section.eyebrow }}</span>{% endif %}
+                <h2>{{ products_section.heading }}</h2>
+            </div>
+            {% if products_section.subtitle %}
+            <p class="products-sub">{{ products_section.subtitle }}</p>
+            {% endif %}
+        </div>
+
+        <div class="products-grid">
+            {% for product in products %}
+            <article class="product-card">
+                <div class="product-img">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                </div>
+                <div class="product-body">
+                    <span class="product-num">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.short_description }}</p>
+                    <button type="button" class="product-link" data-modal-open="product-modal-{{ product.id }}">
+                        {{ products_section.button_text }}
+                    </button>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{# ================= PRODUCT POPUPS ================= #}
+{% for product in products %}
+<div class="pmodal" id="product-modal-{{ product.id }}" role="dialog" aria-modal="true" aria-labelledby="pm-title-{{ product.id }}">
+    <div class="pmodal-backdrop" data-modal-close></div>
+
+    <div class="pmodal-dialog">
+
+        <div class="pmodal-head">
+            <div>
+                <span class="pm-eyebrow">{{ products_section.modal_eyebrow }}{% if product.category %} · {{ product.category }}{% endif %}</span>
+                <h3 id="pm-title-{{ product.id }}">{{ product.name }}</h3>
+            </div>
+            <button type="button" class="pmodal-close" data-modal-close aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+    </svg>
+</button>
+        </div>
+
+        <div class="pmodal-body">
+
+            <div class="pm-left">
+                <div class="pm-img"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+
+                {% if product.overview %}
+                <div class="pm-overview">
+                    <span class="pm-label">{{ products_section.overview_label }}</span>
+                    <p>{{ product.overview }}</p>
+                </div>
+                {% endif %}
+
+                {% if product.range_list %}
+                <div class="pm-range">
+                    <span class="pm-label">{{ product.name }} {{ products_section.range_label }}</span>
+                    <ul>
+                        {% for item in product.range_list %}<li>{{ item }}</li>{% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="pm-right">
+
+                {% if journey_steps %}
+                <div class="pm-block">
+                    <span class="pm-label">{{ products_section.journey_eyebrow }}</span>
+                    <h4>{{ products_section.journey_heading }}</h4>
+                    <ol class="pm-steps">
+                        {% for step in journey_steps %}
+                        <li>
+                            <span class="pm-step-num">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <strong>{{ step.title }}</strong>
+                            {% if step.description %}<small>{{ step.description }}</small>{% endif %}
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                {% endif %}
+
+                <div class="pm-block">
+                    <span class="pm-label">{{ products_section.spec_eyebrow }}</span>
+                    <h4>{{ products_section.spec_heading }}</h4>
+                    <table class="pm-table">
+                        <tr><th>Product</th><td>{{ product.name }}</td></tr>
+                        {% for spec in product.specs.all %}
+                        <tr><th>{{ spec.label }}</th><td>{{ spec.value }}</td></tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                {% if product.packaging_text %}
+                <div class="pm-block">
+                    <span class="pm-label">{{ products_section.packaging_label }}</span>
+                    <p class="pm-text">{{ product.packaging_text }}</p>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="pmodal-foot">
+            <p>{{ products_section.modal_footer_note }}</p>
+            {% if product.whatsapp_url %}
+            <a href="{{ product.whatsapp_url }}" class="pm-enquire" target="_blank" rel="noopener" data-product="{{ product.name }}">
+                {{ products_section.modal_button_prefix }} {{ product.name }} ↗
+            </a>
+            {% else %}
+            <a href="{{ product.button_url }}" class="pm-enquire" data-modal-close data-product="{{ product.name }}">
+                {{ products_section.modal_button_prefix }} {{ product.name }} ↗
+            </a>
+            {% endif %}
+        </div>      
+
+    </div>
+</div>
+{% endfor %}
+{% endif %}

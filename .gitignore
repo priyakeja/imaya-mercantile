@@ -1,0 +1,26 @@
+@'
+# Virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+.env.*
+
+# Database
+db.sqlite3
+
+# Django generated files
+staticfiles/
+
+# IDE and local tools
+.vscode/
+.qodo/
+
+# Logs
+*.log
+'@ | Set-Content .gitignore

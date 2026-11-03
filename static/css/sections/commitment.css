@@ -1,0 +1,67 @@
+.commitment {
+    position: relative;
+    overflow: hidden;
+    background: var(--primary);
+    color: #fff;
+    padding: 115px 0 133px;
+}
+
+.commitment-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+.js .commitment-bg[data-reveal] {
+    transform: scale(1.1);
+    transition: opacity 1.2s ease, transform 2.6s cubic-bezier(.2, .7, .2, 1);
+}
+.js .commitment-bg[data-reveal].is-visible { transform: scale(1); }
+
+.commitment-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--primary) var(--ov-start, 90%), transparent) 0%,
+        color-mix(in srgb, var(--primary) var(--ov-end, 25%), transparent) 100%
+    );
+}
+
+.container.commitment-inner {
+    position: relative;
+    z-index: 1;
+    width: min(1450px, calc(100% - 80px));
+    max-width: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.commitment .section-eyebrow {
+    color: #e1a648;
+    margin-bottom: 22px;
+}
+
+.commitment h2 {
+    max-width: 900px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 3.6vw, 4.2rem);
+    line-height: 1.1;
+    color: #fff;
+}
+
+.commitment p {
+    max-width: 820px;
+    margin-top: 23px;
+    font-size: 17.2px;
+    line-height: 32px;
+    color: #fff;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 992px) {
+    .commitment { padding: 80px 0 90px; }
+    .container.commitment-inner { width: calc(100% - 40px); }
+    .commitment p { font-size: 16px; line-height: 28px; }
+}

@@ -1,0 +1,33 @@
+{% if certs %}
+<section class="certs" id="certifications">
+    <div class="container certs-inner">
+
+        <div class="certs-head">
+            {% if certs.eyebrow %}<span class="section-eyebrow" data-reveal="up">{{ certs.eyebrow }}</span>{% endif %}
+            <h2 data-reveal="up" data-delay="100">{{ certs.heading }}</h2>
+        </div>
+
+        <div class="certs-grid">
+            {% for cert in certificates %}
+            <article class="cert-card" data-reveal="up" data-delay="{% cycle '0' '120' '240' '360' %}">
+                <div class="cert-media{% if cert.image %} cert-media--img{% endif %}">
+                    {% if cert.image %}
+                        <img src="{{ cert.image.url }}" alt="{{ cert.name }}" loading="lazy">
+                    {% else %}
+                        <div class="cert-ph">
+                            <i class="bi bi-file-earmark-text cert-ph-icon"></i>
+                            <span class="cert-ph-lines"><i></i><i></i><i></i></span>
+                            <span class="cert-ph-text">{{ certs.placeholder_text }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <h3>{{ cert.name }}</h3>
+                {% if cert.issued_by %}<p>{{ cert.issued_by }}</p>{% endif %}
+                {% if cert.valid_until %}<p>{{ certs.valid_label }} {{ cert.valid_until }}</p>{% endif %}
+            </article>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sections/hero.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/about.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/products.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/why.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/process.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/commitment.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/certifications.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/feedback.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/contact.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/faq.css' %}">
+<link rel="stylesheet" href="{% static 'css/sections/business_enquiry.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include "partials/sections/hero.html" %}
+    {% include "partials/sections/about.html" %}
+    {% include "partials/sections/products.html" %}
+    {% include "partials/sections/why.html" %}
+    {% include "partials/sections/process.html" %}
+    {% include "partials/sections/commitment.html" %}
+    {% include "partials/sections/certifications.html" %}
+    {% include "partials/sections/feedback.html" %}
+    {% include "partials/sections/contact.html" %}
+    {% include "partials/sections/faq.html" %}
+    {% include "partials/sections/business_enquiry.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/sections/hero.js' %}"></script>
+<script src="{% static 'js/sections/products.js' %}"></script>
+<script src="{% static 'js/sections/contact.js' %}"></script>
+<script src="{% static 'js/sections/faq.js' %}"></script>
+<script src="{% static 'js/sections/faq.js' %}"></script>
+<script src="{% static 'js/sections/feedback.js' %}"></script>
+{% endblock %}

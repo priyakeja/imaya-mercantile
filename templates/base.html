@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site.site_name|default:"Imaya Mercantile" }} | Indian Agricultural Products Exporter{% endblock %}</title>
+
+    {% if site.favicon %}<link rel="icon" href="{{ site.favicon.url }}">{% endif %}
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    {% block extra_css %}{% endblock %}
+
+    {% if site %}
+    <style>
+        :root {
+            --primary: {{ site.primary_color }};
+            --accent: {{ site.accent_color }};
+        }
+    </style>
+    {% endif %}
+</head>
+<body>
+    {% include "partials/header.html" %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+        {% include "partials/footer.html" %}
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/reveal.js' %}"></script>
+    <script src="{% static 'js/footer.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% if footer %}
+<footer class="site-footer" id="footer" style="--ft-bg1: {{ footer.bg_start }}; --ft-bg2: {{ footer.bg_end }}; --ft-hl: {{ footer.highlight_color }}; --ft-btn: {{ footer.button_color }};">
+    <div class="ft-ring" aria-hidden="true"></div>
+
+    <div class="ft-wrap">
+
+        <div class="ft-cta">
+            <div class="ft-cta-text">
+                {% if footer.cta_eyebrow %}<span class="ft-eyebrow" data-reveal="up">{{ footer.cta_eyebrow }}</span>{% endif %}
+                <h2 data-reveal="up" data-delay="100">{{ footer.cta_heading_html }}</h2>
+                {% if footer.cta_description %}<p data-reveal="up" data-delay="200">{{ footer.cta_description }}</p>{% endif %}
+            </div>
+            {% if footer.cta_button_text %}
+            <div class="ft-cta-action" data-reveal="up" data-delay="250">
+                <a class="ft-btn" href="{{ footer.cta_button_link }}"{% if footer.cta_new_tab %} target="_blank" rel="noopener"{% endif %}>
+                    <span>{{ footer.cta_button_text }}</span>
+                    {% if footer.cta_button_icon %}<i class="{{ footer.cta_button_icon }}" aria-hidden="true"></i>{% endif %}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="ft-main">
+
+            <div class="ft-brand" data-reveal="up">
+                <a class="ft-logo" href="/">
+                    {% if footer.logo %}<img src="{{ footer.logo.url }}" alt="{{ site.site_name }}">{% elif site and site.logo %}<img src="{{ site.logo.url }}" alt="{{ site.site_name }}">{% endif %}
+                </a>
+                {% if footer.tagline %}<p class="ft-tagline">{{ footer.tagline }}</p>{% endif %}
+                {% if footer.badge_text %}<span class="ft-badge">{{ footer.badge_text }}</span>{% endif %}
+            </div>
+
+            <div class="ft-col" data-reveal="up" data-delay="100">
+                <h3>{{ footer.explore_title }}</h3>
+                <ul class="ft-links">
+                    {% for l in footer_explore %}<li><a href="{{ l.url }}"{% if l.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ l.title }}</a></li>{% endfor %}
+                </ul>
+            </div>
+
+            <div class="ft-col" data-reveal="up" data-delay="200">
+                <h3>{{ footer.quick_title }}</h3>
+                <ul class="ft-links">
+                    {% for l in footer_quick %}<li><a href="{{ l.url }}"{% if l.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ l.title }}</a></li>{% endfor %}
+                </ul>
+            </div>
+
+            <div class="ft-col" data-reveal="up" data-delay="300">
+                <h3>{{ footer.contact_title }}</h3>
+                {% if footer_contact %}
+                <ul class="ft-contact">
+                    <li><a href="{{ footer_contact.email_link }}" target="_blank" rel="noopener" data-mailto="{{ footer_contact.mailto_link }}"><span class="ft-ic"><i class="{{ footer_contact.email_icon }}"></i></span><span>{{ footer_contact.email }}</span></a></li>
+                    <li><a href="{{ footer_contact.phone_link }}"><span class="ft-ic"><i class="{{ footer_contact.phone_icon }}"></i></span><span>{{ footer_contact.phone }}</span></a></li>
+                    <li><a href="{{ footer_contact.map_link }}" target="_blank" rel="noopener"><span class="ft-ic"><i class="{{ footer_contact.address_icon }}"></i></span><span>{{ footer_contact.address }}</span></a></li>
+                </ul>
+                {% endif %}
+                {% if footer.quote_text %}
+                <a class="ft-quote" href="{{ footer.quote_link }}"><span>{{ footer.quote_text }}</span>{% if footer.quote_icon %}<i class="{{ footer.quote_icon }}" aria-hidden="true"></i>{% endif %}</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="ft-bottom">
+            <p class="ft-copy">{{ footer.copyright_text }}</p>
+            <div class="ft-bottom-right">
+                {% if footer.credit_name %}
+                <span class="ft-credit">{{ footer.credit_prefix }}
+                    {% if footer.credit_url %}<a class="ft-credit-name" href="{{ footer.credit_url }}" target="_blank" rel="noopener">{{ footer.credit_name }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>{% else %}<span class="ft-credit-name">{{ footer.credit_name }}</span>{% endif %}
+                </span>
+                {% endif %}
+                {% if footer.show_back_to_top %}<a class="ft-top" href="#home" aria-label="Back to top"><i class="bi bi-arrow-up" aria-hidden="true"></i></a>{% endif %}
+            </div>
+        </div>
+
+    </div>
+</footer>
+{% endif %}
